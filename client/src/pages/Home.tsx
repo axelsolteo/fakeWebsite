@@ -53,15 +53,17 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
-              <Button size="lg" className="text-lg h-14 px-8 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-0.5">
-                Demander mon étude gratuite
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Link href="/simulateur">
+              <Link href="/contact">
+                <Button size="lg" className="text-lg h-14 px-8 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-0.5">
+                  Demander mon étude gratuite
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <a href="#simulateur-section">
                 <Button variant="outline" size="lg" className="text-lg h-14 px-8 bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
                   Estimer mes économies
                 </Button>
-              </Link>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -195,10 +197,40 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Button size="lg" variant="secondary" className="px-8">
-                Découvrir nos solutions
-              </Button>
+              <Link href="/solutions">
+                <Button size="lg" variant="secondary" className="px-8">
+                  Découvrir nos solutions
+                </Button>
+              </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INTEGRATED SIMULATOR SECTION */}
+      <section className="py-24 bg-background border-t border-slate-100" id="simulateur-section">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+              Estimez vos économies en 2 minutes
+            </h2>
+            <p className="text-slate-600 text-lg">
+              Utilisez notre configurateur pour découvrir le potentiel solaire de votre toiture.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+            <iframe 
+              src="https://app.solteo.fr/lead-magnet?companyId=237959bb-84ac-438c-b8eb-7a6c8ca2cda5" 
+              title="Formulaire Estimation Solaire Solteo" 
+              width="100%" 
+              height="870px" 
+              frameBorder="0" 
+              allow="geolocation" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            ></iframe>
           </div>
         </div>
       </section>
@@ -218,9 +250,11 @@ export default function Home() {
                 Obtenez votre étude personnalisée gratuite en moins de 2 minutes. Découvrez combien vous pouvez économiser dès aujourd'hui.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-secondary hover:bg-blue-50 text-lg h-14 px-8">
-                  Devis Gratuit sans engagement
-                </Button>
+                <Link href="/contact">
+                  <Button size="lg" className="bg-white text-secondary hover:bg-blue-50 text-lg h-14 px-8">
+                    Devis Gratuit
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg h-14 px-8">
                   Parler à un expert
                 </Button>
