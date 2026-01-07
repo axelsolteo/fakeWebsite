@@ -24,6 +24,16 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSimulator = (e: React.MouseEvent) => {
+    if (location === "/") {
+      e.preventDefault();
+      const section = document.getElementById("simulateur-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <nav
       className={cn(
@@ -70,14 +80,19 @@ export function Navbar() {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-4">
            <Link href="/simulateur">
-            <Button variant="secondary" className="gap-2 font-medium">
-              <Calculator className="h-4 w-4" />
-              Simulateur
-            </Button>
+            <a onClick={scrollToSimulator}>
+              <Button className="gap-2 font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all">
+                <Calculator className="h-4 w-4" />
+                Simulateur Gratuit
+              </Button>
+            </a>
           </Link>
           <Link href="/contact">
-            <Button className="font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all">
-              Devis Gratuit
+            <Button variant="ghost" className={cn(
+              "font-semibold",
+              !isScrolled && location === "/" ? "text-white hover:bg-white/10" : "text-foreground"
+            )}>
+              Contact
             </Button>
           </Link>
         </div>
@@ -103,13 +118,15 @@ export function Navbar() {
               ))}
               <div className="flex flex-col gap-3 mt-4">
                 <Link href="/simulateur">
-                  <Button variant="outline" className="w-full gap-2 justify-start">
-                    <Calculator className="h-4 w-4" />
-                    Simulateur d'économies
-                  </Button>
+                  <a onClick={scrollToSimulator}>
+                    <Button className="w-full gap-2 justify-center font-bold">
+                      <Calculator className="h-4 w-4" />
+                      Simulateur Gratuit
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/contact">
-                  <Button className="w-full">Devis Gratuit</Button>
+                  <Button variant="outline" className="w-full">Contactez-nous</Button>
                 </Link>
               </div>
             </div>

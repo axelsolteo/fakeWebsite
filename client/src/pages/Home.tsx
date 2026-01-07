@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle2, Leaf, PiggyBank, Zap, ShieldCheck, Home as HomeIcon } from "lucide-react";
-import { Link } from "wouter";
+import { Calculator, ArrowRight, CheckCircle2, Leaf, PiggyBank, Zap, ShieldCheck, Home as HomeIcon } from "lucide-react";
+import { Link, useLocation } from "wouter";
 import heroImage from "@assets/generated_images/modern_solar_panels_on_a_french_residential_roof.png";
 import { motion } from "framer-motion";
 
 export default function Home() {
+  const [, setLocation] = useLocation();
+
+  const scrollToSimulator = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const section = document.getElementById("simulateur-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* HERO SECTION */}
@@ -31,9 +41,9 @@ export default function Home() {
                 🌿 Installateur certifié RGE QualiPV
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1]">
-                Votre énergie, <br/>
+                Économisez <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">
-                  Notre expertise.
+                  70% sur vos factures.
                 </span>
               </h1>
             </motion.div>
@@ -44,7 +54,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-lg md:text-xl text-slate-200 leading-relaxed"
             >
-              Réduisez votre facture d'électricité jusqu'à 70% grâce à nos solutions photovoltaïques sur-mesure. Une installation clé en main, rentable et durable.
+              Découvrez votre potentiel solaire en 2 minutes. Notre simulateur analyse votre toiture pour calculer vos gains réels. Gratuit et sans engagement.
             </motion.p>
 
             <motion.div 
@@ -53,17 +63,17 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
-              <Link href="/contact">
-                <Button size="lg" className="text-lg h-14 px-8 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-0.5">
-                  Demander mon étude gratuite
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <a href="#simulateur-section">
-                <Button variant="outline" size="lg" className="text-lg h-14 px-8 bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
-                  Estimer mes économies
+              <a href="#simulateur-section" onClick={scrollToSimulator}>
+                <Button size="lg" className="text-lg h-16 px-10 shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:-translate-y-1 font-bold group">
+                  Lancer mon simulateur
+                  <Calculator className="ml-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                 </Button>
               </a>
+              <Link href="/contact">
+                <Button variant="outline" size="lg" className="text-lg h-16 px-8 bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                  Parlons de votre projet
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -75,8 +85,8 @@ export default function Home() {
           transition={{ delay: 1, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
         >
-          <span className="text-xs uppercase tracking-widest">Découvrir</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent" />
+          <span className="text-xs uppercase tracking-widest">Voir le simulateur</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent animate-bounce" />
         </motion.div>
       </section>
 
@@ -150,6 +160,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* MID-PAGE SIMULATOR CTA */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Prêt à voir vos économies ?</h2>
+          <p className="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
+            Plus de 500 propriétaires ont déjà utilisé notre outil pour optimiser leur installation.
+          </p>
+          <a href="#simulateur-section" onClick={scrollToSimulator}>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-bold h-14 px-12 group">
+              Démarrer la simulation
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </a>
+        </div>
+      </section>
+
       {/* EXPERTISE SECTION */}
       <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
@@ -212,10 +238,10 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-              Estimez vos économies en 2 minutes
+              Votre étude solaire gratuite
             </h2>
             <p className="text-slate-600 text-lg">
-              Utilisez notre configurateur pour découvrir le potentiel solaire de votre toiture.
+              Remplissez les informations ci-dessous pour obtenir une estimation précise de vos gains.
             </p>
           </div>
 
@@ -245,19 +271,21 @@ export default function Home() {
 
             <div className="relative z-10 max-w-3xl mx-auto">
               <Zap className="h-12 w-12 mx-auto mb-6 text-yellow-400 fill-yellow-400" />
-              <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Prêt à passer au solaire ?</h2>
+              <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Utilisez notre simulateur</h2>
               <p className="text-xl text-blue-100 mb-8">
-                Obtenez votre étude personnalisée gratuite en moins de 2 minutes. Découvrez combien vous pouvez économiser dès aujourd'hui.
+                C'est le moyen le plus rapide d'obtenir une réponse concrète pour votre projet solaire.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#simulateur-section" onClick={scrollToSimulator}>
+                  <Button size="lg" className="bg-white text-secondary hover:bg-blue-50 text-lg h-14 px-12 font-bold">
+                    Démarrer gratuitement
+                  </Button>
+                </a>
                 <Link href="/contact">
-                  <Button size="lg" className="bg-white text-secondary hover:bg-blue-50 text-lg h-14 px-8">
-                    Devis Gratuit
+                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg h-14 px-8">
+                    Nous contacter directement
                   </Button>
                 </Link>
-                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg h-14 px-8">
-                  Parler à un expert
-                </Button>
               </div>
             </div>
           </div>
