@@ -4,9 +4,19 @@ import { Calculator, ArrowRight, CheckCircle2, Leaf, PiggyBank, Zap, ShieldCheck
 import { Link, useLocation } from "wouter";
 import heroImage from "@assets/generated_images/modern_solar_panels_on_a_french_residential_roof.png";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [, setLocation] = useLocation();
+  const [companyId, setCompanyId] = useState("237959bb-84ac-438c-b8eb-7a6c8ca2cda5");
+
+  useEffect(() => {
+    const handleProfileChange = (e: any) => {
+      setCompanyId(e.detail.companyId);
+    };
+    window.addEventListener('profileChanged', handleProfileChange);
+    return () => window.removeEventListener('profileChanged', handleProfileChange);
+  }, []);
 
   const scrollToSimulator = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -85,8 +95,8 @@ export default function Home() {
           transition={{ delay: 1, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
         >
-          <span className="text-xs uppercase tracking-widest">Voir le simulateur</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent animate-bounce" />
+          <span className="text-xs uppercase tracking-widest text-center">Voir le simulateur</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent" />
         </motion.div>
       </section>
 
@@ -247,7 +257,8 @@ export default function Home() {
 
           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
             <iframe 
-              src="https://app.solteo.fr/lead-magnet?companyId=237959bb-84ac-438c-b8eb-7a6c8ca2cda5" 
+              key={companyId}
+              src={`https://app.solteo.fr/lead-magnet?companyId=${companyId}`} 
               title="Formulaire Estimation Solaire Solteo" 
               width="100%" 
               height="870px" 

@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Sun, Calculator } from "lucide-react";
+import { Menu, X, Sun, Calculator, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -12,9 +20,17 @@ const links = [
   { href: "/blog", label: "Blog" },
 ];
 
+const profiles = [
+  { id: "A", name: "Profil A", companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5" },
+  { id: "B", name: "Profil B", companyId: "b-profile-placeholder-id" },
+  { id: "C", name: "Profil C", companyId: "c-profile-placeholder-id" },
+  { id: "D", name: "Profil D", companyId: "d-profile-placeholder-id" },
+];
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [location] = useLocation();
+  const [currentProfile, setCurrentProfile] = useState(profiles[0]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +39,11 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Sync profile with local storage or state to be used in simulator
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('profileChanged', { detail: currentProfile }));
+  }, [currentProfile]);
 
   const scrollToSimulator = (e: React.MouseEvent) => {
     if (location === "/") {
@@ -60,7 +81,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
               <a
@@ -77,7 +98,7 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* CTA & Profile Selector */}
         <div className="hidden md:flex items-center gap-4">
            <Link href="/simulateur">
             <a onClick={scrollToSimulator}>
@@ -87,20 +108,38 @@ export function Navbar() {
               </Button>
             </a>
           </Link>
-          <Link href="/contact">
-            <Button variant="ghost" className={cn(
-              "font-semibold",
-              !isScrolled && location === "/" ? "text-white hover:bg-white/10" : "text-foreground"
-            )}>
-              Contact
-            </Button>
-          </Link>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className={cn(
+                "gap-2 font-semibold",
+                !isScrolled && location === "/" ? "text-white hover:bg-white/10" : "text-foreground"
+              )}>
+                <User className="h-4 w-4" />
+                {currentProfile.name}
+                <ChevronDown className="h-3 w-3 opacity-50" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuLabel>Se connecter en tant que</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {profiles.map((profile) => (
+                <DropdownMenuItem 
+                  key={profile.id}
+                  onClick={() => setCurrentProfile(profile)}
+                  className={cn(currentProfile.id === profile.id && "bg-primary/10 text-primary")}
+                >
+                  {profile.name}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className={cn("md:hidden", !isScrolled && location === "/" && "text-white hover:bg-white/10")}>
+            <Button variant="ghost" size="icon" className={cn("lg:hidden", !isScrolled && location === "/" && "text-white hover:bg-white/10")}>
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
@@ -125,9 +164,22 @@ export function Navbar() {
                     </Button>
                   </a>
                 </Link>
-                <Link href="/contact">
-                  <Button variant="outline" className="w-full">Contactez-nous</Button>
-                </Link>
+                
+                <div className="pt-4 border-t border-border">
+                  <p className="text-sm font-medium text-muted-foreground mb-2">Profil sélectionné</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {profiles.map((profile) => (
+                      <Button 
+                        key={profile.id}
+                        variant={currentProfile.id === profile.id ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setCurrentProfile(profile)}
+                      >
+                        {profile.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </SheetContent>

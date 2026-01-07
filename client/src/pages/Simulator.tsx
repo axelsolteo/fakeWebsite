@@ -1,4 +1,16 @@
+import { useState, useEffect } from "react";
+
 export default function Simulator() {
+  const [companyId, setCompanyId] = useState("237959bb-84ac-438c-b8eb-7a6c8ca2cda5");
+
+  useEffect(() => {
+    const handleProfileChange = (e: any) => {
+      setCompanyId(e.detail.companyId);
+    };
+    window.addEventListener('profileChanged', handleProfileChange);
+    return () => window.removeEventListener('profileChanged', handleProfileChange);
+  }, []);
+
   return (
     <div className="pt-24 pb-16 min-h-screen bg-slate-50">
       <div className="container mx-auto px-4">
@@ -13,7 +25,8 @@ export default function Simulator() {
 
         <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
           <iframe 
-            src="https://app.solteo.fr/lead-magnet?companyId=237959bb-84ac-438c-b8eb-7a6c8ca2cda5" 
+            key={companyId}
+            src={`https://app.solteo.fr/lead-magnet?companyId=${companyId}`} 
             title="Formulaire Estimation Solaire Solteo" 
             width="100%" 
             height="870px" 
