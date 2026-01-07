@@ -20,11 +20,12 @@ const links = [
   { href: "/blog", label: "Blog" },
 ];
 
+// Profils avec Company IDs hardcodés
 const profiles = [
   { id: "A", name: "Profil A", companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5" },
-  { id: "B", name: "Profil B", companyId: "b-profile-placeholder-id" },
-  { id: "C", name: "Profil C", companyId: "c-profile-placeholder-id" },
-  { id: "D", name: "Profil D", companyId: "d-profile-placeholder-id" },
+  { id: "B", name: "Profil B", companyId: "77777777-7777-7777-7777-777777777777" },
+  { id: "C", name: "Profil C", companyId: "88888888-8888-8888-8888-888888888888" },
+  { id: "D", name: "Profil D", companyId: "99999999-9999-9999-9999-999999999999" },
 ];
 
 export function Navbar() {
