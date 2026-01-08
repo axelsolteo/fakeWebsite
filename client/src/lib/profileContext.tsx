@@ -27,7 +27,7 @@ export const profiles: Profile[] = [
     id: "B", 
     name: "Clara", 
     companyName: "SolteoInstall",
-    companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
+    companyId: "b22249a5-0ddc-4c32-8d0e-9f62a163022e",
     theme: {
       primary: "199 89% 48%",      // Cyan / Bleu ciel
       secondary: "221 83% 53%",    // Bleu électrique
