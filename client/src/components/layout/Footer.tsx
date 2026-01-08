@@ -1,7 +1,11 @@
 import { Sun, Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Link } from "wouter";
+import { useProfile } from "@/lib/profileContext";
 
 export function Footer() {
+  const { currentProfile } = useProfile();
+  const brandBase = currentProfile.companyName.replace(/Solteo/, '');
+
   return (
     <footer className="bg-slate-900 text-slate-100 pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -12,7 +16,7 @@ export function Footer() {
               <div className="bg-primary p-1.5 rounded-md text-primary-foreground">
                 <Sun className="h-5 w-5 fill-current" />
               </div>
-              <span className="font-display font-bold text-xl">SolteoPose</span>
+              <span className="font-display font-bold text-xl">Solteo{brandBase}</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               Expert en solutions photovoltaïques pour les particuliers. 
@@ -42,7 +46,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>contact@solteopose.fr</span>
+                <span>contact@{currentProfile.companyName.toLowerCase()}.fr</span>
               </li>
               <li className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-primary" />
@@ -66,7 +70,7 @@ export function Footer() {
               </a>
             </div>
             <p className="text-xs text-slate-500">
-              © 2024 Solteo Pose.<br />Tous droits réservés.
+              © 2024 {currentProfile.companyName}.<br />Tous droits réservés.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Sun, Calculator, User, ChevronDown } from "lucide-react";
+import { Menu, Sun, Calculator, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useProfile, profiles } from "@/lib/profileContext";
 
 const links = [
   { href: "/", label: "Accueil" },
@@ -20,18 +21,10 @@ const links = [
   { href: "/blog", label: "Blog" },
 ];
 
-// Profils avec Company IDs hardcodés
-const profiles = [
-  { id: "A", name: "Profil A", companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5" },
-  { id: "B", name: "Profil B", companyId: "77777777-7777-7777-7777-777777777777" },
-  { id: "C", name: "Profil C", companyId: "88888888-8888-8888-8888-888888888888" },
-  { id: "D", name: "Profil D", companyId: "99999999-9999-9999-9999-999999999999" },
-];
-
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [location] = useLocation();
-  const [currentProfile, setCurrentProfile] = useState(profiles[0]);
+  const { currentProfile, setCurrentProfile } = useProfile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,11 +33,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Sync profile with local storage or state to be used in simulator
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent('profileChanged', { detail: currentProfile }));
-  }, [currentProfile]);
 
   const scrollToSimulator = (e: React.MouseEvent) => {
     if (location === "/") {
@@ -55,6 +43,9 @@ export function Navbar() {
       }
     }
   };
+
+  // Extract brand name parts for styling
+  const brandBase = currentProfile.companyName.replace(/Solteo/, '');
 
   return (
     <nav
@@ -76,7 +67,7 @@ export function Navbar() {
               "font-display font-bold text-2xl tracking-tight transition-colors",
               !isScrolled && location === "/" ? "text-white" : "text-foreground"
             )}>
-              Solteo<span className="text-primary">Pose</span>
+              Solteo<span className="text-primary">{brandBase}</span>
             </span>
           </a>
         </Link>
@@ -130,7 +121,10 @@ export function Navbar() {
                   onClick={() => setCurrentProfile(profile)}
                   className={cn(currentProfile.id === profile.id && "bg-primary/10 text-primary")}
                 >
-                  {profile.name}
+                  <div className="flex flex-col">
+                    <span>{profile.name}</span>
+                    <span className="text-xs text-muted-foreground">{profile.companyName}</span>
+                  </div>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

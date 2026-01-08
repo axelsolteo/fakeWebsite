@@ -1,22 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calculator, ArrowRight, CheckCircle2, Leaf, PiggyBank, Zap, ShieldCheck, Home as HomeIcon } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import heroImage from "@assets/generated_images/modern_solar_panels_on_a_french_residential_roof.png";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useProfile } from "@/lib/profileContext";
 
 export default function Home() {
-  const [, setLocation] = useLocation();
-  const [companyId, setCompanyId] = useState("237959bb-84ac-438c-b8eb-7a6c8ca2cda5");
-
-  useEffect(() => {
-    const handleProfileChange = (e: any) => {
-      setCompanyId(e.detail.companyId);
-    };
-    window.addEventListener('profileChanged', handleProfileChange);
-    return () => window.removeEventListener('profileChanged', handleProfileChange);
-  }, []);
+  const { currentProfile } = useProfile();
+  const brandBase = currentProfile.companyName.replace(/Solteo/, '');
 
   const scrollToSimulator = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -200,12 +192,12 @@ export default function Home() {
             </div>
 
             <div className="order-1 md:order-2">
-              <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">L'expertise Solteo</span>
+              <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">L'expertise {currentProfile.companyName}</span>
               <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-6 leading-tight">
                 Une installation de qualité, <br/>sans compromis.
               </h2>
               <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-                Chez Solteo Pose, nous ne nous contentons pas de poser des panneaux. Nous concevons le système énergétique optimal pour votre habitation, en tenant compte de votre consommation, de votre exposition et de votre budget.
+                Chez {currentProfile.companyName}, nous ne nous contentons pas de poser des panneaux. Nous concevons le système énergétique optimal pour votre habitation, en tenant compte de votre consommation, de votre exposition et de votre budget.
               </p>
 
               <ul className="space-y-4 mb-8">
@@ -246,8 +238,8 @@ export default function Home() {
 
           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
             <iframe 
-              key={companyId}
-              src={`https://app.solteo.fr/lead-magnet?companyId=${companyId}`} 
+              key={currentProfile.companyId}
+              src={`https://app.solteo.fr/lead-magnet?companyId=${currentProfile.companyId}`} 
               title="Formulaire Estimation Solaire Solteo" 
               width="100%" 
               height="870px" 
