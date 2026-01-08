@@ -11,11 +11,11 @@ export interface Profile {
   };
 }
 
-// Profils avec Company IDs et thèmes de couleurs
+// Profils avec Company IDs hardcodés
 export const profiles: Profile[] = [
   { 
     id: "A", 
-    name: "Profil A", 
+    name: "Manon", 
     companyName: "SolteoPose",
     companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
     theme: {
@@ -25,9 +25,9 @@ export const profiles: Profile[] = [
   },
   { 
     id: "B", 
-    name: "Profil B", 
+    name: "Clara", 
     companyName: "SolteoInstall",
-    companyId: "77777777-7777-7777-7777-777777777777",
+    companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
     theme: {
       primary: "199 89% 48%",      // Cyan / Bleu ciel
       secondary: "221 83% 53%",    // Bleu électrique
@@ -35,9 +35,9 @@ export const profiles: Profile[] = [
   },
   { 
     id: "C", 
-    name: "Profil C", 
+    name: "Marion", 
     companyName: "SolteoEnergy",
-    companyId: "88888888-8888-8888-8888-888888888888",
+    companyId: "724a24f0-a5d5-49ff-a906-fc473cd91dbc",
     theme: {
       primary: "38 92% 50%",       // Orange solaire
       secondary: "25 95% 53%",     // Orange foncé
@@ -45,9 +45,9 @@ export const profiles: Profile[] = [
   },
   { 
     id: "D", 
-    name: "Profil D", 
+    name: "Margaux", 
     companyName: "SolteoGreen",
-    companyId: "99999999-9999-9999-9999-999999999999",
+    companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
     theme: {
       primary: "158 64% 52%",      // Vert menthe / émeraude
       secondary: "160 84% 39%",    // Vert forêt

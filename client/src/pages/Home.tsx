@@ -250,6 +250,20 @@ export default function Home() {
               className="w-full"
             ></iframe>
           </div>
+
+          {/* Mentions RGPD */}
+          <div className="mt-8 max-w-4xl mx-auto text-center text-slate-500 text-xs leading-relaxed space-y-2 px-4">
+            <p className="font-medium text-slate-600">Mentions légales et RGPD</p>
+            <p>
+              En soumettant ce formulaire, vous acceptez que vos données personnelles soient collectées et traitées par {currentProfile.companyName} dans le but de vous recontacter pour vous proposer une offre personnalisée concernant l'installation de panneaux solaires.
+            </p>
+            <p>
+              Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, d'effacement et de portabilité de vos données, ainsi que d'un droit d'opposition et de limitation du traitement. Vous pouvez exercer ces droits en nous contactant à l'adresse : contact@{currentProfile.companyName.toLowerCase()}.fr
+            </p>
+            <p>
+              Vos données sont conservées pendant une durée de 3 ans à compter de votre dernier contact avec nous et ne sont jamais transmises à des tiers sans votre consentement explicite.
+            </p>
+          </div>
         </div>
       </section>
 
