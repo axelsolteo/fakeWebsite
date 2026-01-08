@@ -44,9 +44,8 @@ export default function Home() {
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1]">
                 Économisez <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">
-                  70% sur vos factures.
-                </span>
+                70% sur vos factures.
+                
               </h1>
             </motion.div>
             

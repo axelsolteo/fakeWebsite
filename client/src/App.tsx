@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
+import { useHashLocation } from "./lib/use-hash-location";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -17,19 +18,21 @@ import { Footer } from "@/components/layout/Footer";
 function Router() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/solutions" component={Solutions} />
-          <Route path="/realisations" component={Gallery} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/simulateur" component={Simulator} />
-          <Route path="/contact" component={Contact} />
-          <Route component={NotFound} />
-        </Switch>
-      </main>
-      <Footer />
+      <WouterRouter hook={useHashLocation}>
+        <Navbar />
+        <main className="flex-grow">
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/solutions" component={Solutions} />
+            <Route path="/realisations" component={Gallery} />
+            <Route path="/blog" component={Blog} />
+            <Route path="/simulateur" component={Simulator} />
+            <Route path="/contact" component={Contact} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+        <Footer />
+      </WouterRouter>
     </div>
   );
 }

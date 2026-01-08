@@ -20,7 +20,7 @@ export const profiles: Profile[] = [
     companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
     theme: {
       primary: "142 71% 45%",      // Vert vif (original)
-      secondary: "215 90% 32%",    // Bleu profond
+      secondary: "142 71% 45%",    // Vert vif
     }
   },
   { 
@@ -30,7 +30,7 @@ export const profiles: Profile[] = [
     companyId: "b22249a5-0ddc-4c32-8d0e-9f62a163022e",
     theme: {
       primary: "199 89% 48%",      // Cyan / Bleu ciel
-      secondary: "221 83% 53%",    // Bleu électrique
+      secondary: "199 89% 48%",      // Cyan / Bleu ciel
     }
   },
   { 
@@ -40,17 +40,17 @@ export const profiles: Profile[] = [
     companyId: "724a24f0-a5d5-49ff-a906-fc473cd91dbc",
     theme: {
       primary: "38 92% 50%",       // Orange solaire
-      secondary: "25 95% 53%",     // Orange foncé
+      secondary: "38 92% 50%",       // Orange solaire
     }
   },
   { 
     id: "D", 
     name: "Margaux", 
-    companyName: "SolteoGreen",
+    companyName: "SolteoPose",
     companyId: "237959bb-84ac-438c-b8eb-7a6c8ca2cda5",
     theme: {
-      primary: "158 64% 52%",      // Vert menthe / émeraude
-      secondary: "160 84% 39%",    // Vert forêt
+      primary: "142 71% 45%",      // Vert vif (original)
+      secondary: "142 71% 45%",      // Vert vif (original)
     }
   },
 ];
