@@ -1,10 +1,8 @@
 import { useSyncExternalStore } from "react";
-import { BaseLocationHook, navigate } from "wouter/use-location";
 
-// returns the current hash location (minus the # symbol)
 const currentLoc = () => window.location.hash.replace(/^#/, "") || "/";
 
-export const useHashLocation: BaseLocationHook = () => {
+export const useHashLocation = () => {
     const location = useSyncExternalStore(
         (onChange) => {
             window.addEventListener("hashchange", onChange);
@@ -13,5 +11,9 @@ export const useHashLocation: BaseLocationHook = () => {
         () => currentLoc()
     );
 
-    return [location, (to: string) => navigate("#" + to)];
+    const navigate = (to: string) => {
+        window.location.hash = to;
+    };
+
+    return [location, navigate] as const;
 };
